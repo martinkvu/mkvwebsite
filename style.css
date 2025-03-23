@@ -1,37 +1,42 @@
-/* Center the contact section */
-#contact {
-    text-align: center;
-    padding: 50px 0;
-}
+// Updated script.js for smooth scrolling and project interactivity
+document.addEventListener("DOMContentLoaded", function () {
+    // Smooth scrolling
+    document.querySelectorAll("nav a").forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute("href").substring(1);
+            document.getElementById(targetId).scrollIntoView({
+                behavior: "smooth"
+            });
+        });
+    });
 
-/* Style the horizontal lines */
-.contact-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-}
+    // Dynamic project loading
+    const projects = [
+        { name: "Project 1", description: "Description of project 1" },
+        { name: "Project 2", description: "Description of project 2" },
+        { name: "Project 3", description: "Description of project 3" }
+    ];
 
-.line {
-    width: 20%;
-    height: 1px;
-    background-color: #333;
-    margin: 0 15px;
-}
+    const projectList = document.querySelector(".project-list");
+    projects.forEach(proj => {
+        const projectItem = document.createElement("div");
+        projectItem.classList.add("project-item");
+        projectItem.innerHTML = `<h3>${proj.name}</h3><p>${proj.description}</p>`;
+        projectList.appendChild(projectItem);
+    });
 
-/* Style social media icons */
-.social-icons {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
+    // Highlight active nav link on scroll
+    window.addEventListener("scroll", () => {
+        let fromTop = window.scrollY;
+        document.querySelectorAll("nav a").forEach(link => {
+            let section = document.querySelector(link.getAttribute("href"));
+            if (section.offsetTop <= fromTop && section.offsetTop + section.offsetHeight > fromTop) {
+                link.classList.add("active");
+            } else {
+                link.classList.remove("active");
+            }
+        });
+    });
+});
 
-.social-icons a img {
-    width: 40px; /* Adjust icon size */
-    height: 40px;
-    transition: transform 0.3s ease-in-out;
-}
-
-.social-icons a img:hover {
-    transform: scale(1.2); /* Add hover effect */
-}
