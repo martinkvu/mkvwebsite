@@ -1,46 +1,30 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Mobile menu toggle
-    const menuToggle = document.querySelector(".menu-toggle");
-    const navLinks = document.querySelector(".nav-links");
-
-    if (menuToggle) {
-        menuToggle.addEventListener("click", function () {
-            navLinks.classList.toggle("active");
-        });
-    }
-
     // Smooth scrolling for navigation links
-    document.querySelectorAll(".nav-links a").forEach(link => {
-        link.addEventListener("click", function (e) {
-            e.preventDefault();
-            const targetId = this.getAttribute("href").substring(1);
-            const targetElement = document.getElementById(targetId);
+    const navLinks = document.querySelectorAll("nav ul li a");
 
-            if (targetElement) {
+    navLinks.forEach(link => {
+        link.addEventListener("click", function (event) {
+            event.preventDefault();
+            const targetId = this.getAttribute("href").substring(1);
+            const targetSection = document.getElementById(targetId);
+
+            if (targetSection) {
                 window.scrollTo({
-                    top: targetElement.offsetTop - 50,
+                    top: targetSection.offsetTop - 50,
                     behavior: "smooth"
                 });
             }
         });
     });
 
-    // Sticky navbar effect
-    window.addEventListener("scroll", function () {
-        const navbar = document.querySelector("nav");
-        if (window.scrollY > 50) {
-            navbar.classList.add("scrolled");
-        } else {
-            navbar.classList.remove("scrolled");
-        }
-    });
-});
-document.querySelectorAll('nav a').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href').substring(1);
-        document.getElementById(targetId).scrollIntoView({
-            behavior: 'smooth'
-        });
+    // Responsive menu toggle (optional)
+    const menuToggle = document.createElement("div");
+    menuToggle.classList.add("menu-toggle");
+    menuToggle.innerHTML = "&#9776;"; // Hamburger icon
+    document.querySelector("header").prepend(menuToggle);
+
+    const nav = document.querySelector("nav ul");
+    menuToggle.addEventListener("click", function () {
+        nav.classList.toggle("active");
     });
 });
