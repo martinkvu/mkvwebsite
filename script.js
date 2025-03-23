@@ -1,20 +1,21 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Mobile Menu Toggle
-    const menuToggle = document.getElementById("menu-toggle");
-    const navMenu = document.getElementById("nav-menu");
+    // Mobile menu toggle
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
 
-    menuToggle.addEventListener("click", function () {
-        navMenu.classList.toggle("open");
-    });
+    if (menuToggle) {
+        menuToggle.addEventListener("click", function () {
+            navLinks.classList.toggle("active");
+        });
+    }
 
-    // Smooth Scrolling for Navigation Links
-    const navLinks = document.querySelectorAll("nav a[href^='#']");
-
-    navLinks.forEach(link => {
+    // Smooth scrolling for navigation links
+    document.querySelectorAll(".nav-links a").forEach(link => {
         link.addEventListener("click", function (e) {
             e.preventDefault();
             const targetId = this.getAttribute("href").substring(1);
             const targetElement = document.getElementById(targetId);
+
             if (targetElement) {
                 window.scrollTo({
                     top: targetElement.offsetTop - 50,
@@ -24,13 +25,13 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // Scroll Effect for Navbar
+    // Sticky navbar effect
     window.addEventListener("scroll", function () {
-        const header = document.querySelector("header");
+        const navbar = document.querySelector("nav");
         if (window.scrollY > 50) {
-            header.classList.add("scrolled");
+            navbar.classList.add("scrolled");
         } else {
-            header.classList.remove("scrolled");
+            navbar.classList.remove("scrolled");
         }
     });
 });
